@@ -43,7 +43,7 @@ public class SwiftImageManager: NSObject {
     public func load(_ string: String, _ loaded: @escaping ((UIImage) -> Void)) {
         if string.isImagePath {
             if imageCache.keys.contains(string) {
-                loaded(imageCache[string]!)
+                DispatchQueue.main.async {loaded(imageCache[string]!)}
             } else {
                 DispatchQueue.init(label: "imageLoad", qos: .background).async {
                     if let url = URL(string: string) {
